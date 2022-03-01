@@ -7,11 +7,16 @@
 	"author": "prathik <37804760+prmali@users.noreply.github.com>",
 	"license": "MIT",
 	"scripts": {
+		"start": "node --experimental-specifier-resolution=node src/init.js",
+		"dev": "nodemon --experimental-specifier-resolution=node src/init.js",
 		"postinstall": "link-module-alias",
 		"preinstall": "command -v link-module-alias && link-module-alias clean || true"
 	},
 	"dependencies": {
 		"axios": "^0.26.0",
+		"body-parser": "^1.19.2",
+		"cookie-parser": "^1.4.6",
+		"cors": "^2.8.5",
 		"dotenv": "^16.0.0",
 		"express": "^4.17.3",
 		"mongoose": "^6.2.3"
@@ -27,6 +32,7 @@
 	"_moduleAliases": {
 		"src": "src",
 		"controllers": "src/controllers",
+		"routes": "src/routes",
 		"models": "src/models",
 		"middleware": "src/middleware",
 		"utils": "src/utils"

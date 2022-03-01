@@ -1,21 +1,42 @@
-import axios from "axios";
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import mongoose from "mongoose";
 import "dotenv/config";
 
-const options = {
-	method: "GET",
-	url: "https://auth.calendly.com/oauth/authorize",
-	params: {
-		response_type: "code",
-		redirect_uri: "https://my.site.com/auth/calendly",
-	},
-	headers: { "Content-Type": "application/json" },
-};
+import router from "routes";
 
-axios
-	.request(options)
-	.then(function (response) {
-		console.log(response.data);
-	})
-	.catch(function (error) {
-		console.error(error);
+const app = express();
+
+try {
+	mongoose.connect("mongodb://localhost:27017/rally-calendly", {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
 	});
+	console.log("🔗 Mongodb Up");
+} catch (err) {
+	console.log("💥 Mongodb Down");
+}
+
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(router);
+
+app.listen(process.env.PORT || 4000, () => {
+	console.log(
+		`🚀 Rally-Calendly started @ http://localhost:${
+			process.env.PORT || 4000
+		}`
+	);
+});
+
+/* {
+		credentials: true,
+		origin: (origin, callback) => {
+			const validOrigin = whitelistedOrigins.indexOf(origin) !== -1;
+			callback(null, { origin: validOrigin });
+		},
+	} */
