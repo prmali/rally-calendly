@@ -10,3 +10,4 @@ Current features:
 To add (waiting on Rally keys):
 - Rally OAuth
 - Rally user token holdings
+- Frontend
